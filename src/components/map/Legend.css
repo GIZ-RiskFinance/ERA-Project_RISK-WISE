@@ -1,0 +1,58 @@
+.legend-container {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  width: 250px;
+  z-index: 1000;
+  font-size: 12px;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none; /* Ensure the legend does not block map interaction */
+}
+
+.color-blocks {
+  display: flex; /* Ensures that the blocks are laid out horizontally */
+  height: 20px; /* Height of the color blocks */
+  border-radius: 4px; /* Optional: Rounds corners of the first and last blocks */
+  overflow: hidden; /* Keeps nested elements within the bounds */
+}
+
+.value-labels {
+  display: flex;
+  justify-content: space-between; /* Ensures the labels are distributed evenly */
+  position: relative;
+  top: 5px; /* Adjust based on your layout */
+  width: 100%; /* Ensure labels align with blocks */
+}
+
+.value-label-left {
+  flex-grow: 1;
+  text-align: left; /* Aligns text to the left */
+  margin-left: -2px;
+}
+
+.value-label-right {
+  flex-grow: 1;
+  text-align: right; /* Aligns text to the right */
+  margin-right: -2px;
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.legend-label {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.legend-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

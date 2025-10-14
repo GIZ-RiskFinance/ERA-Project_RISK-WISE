@@ -1,0 +1,43 @@
+.logo {
+  width: 64px;
+  height: 64px;
+  margin-right: 16px;
+  object-fit: cover;
+  margin-left: 16px;
+}
+
+.logo_giz {
+  width: 230px;
+  height: 64px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+.logo_unu {
+  width: 155px;
+  height: 64px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+.root {
+  flex-grow: 1;
+}
+
+.menuButton {
+  margin-right: 2px;
+}
+
+.title {
+  flex-grow: 1;
+  text-align: "center";
+}
+
+.logo {
+  max-width: 40px;
+  margin-right: "10px";
+}

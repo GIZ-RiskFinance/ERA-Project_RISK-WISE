@@ -1,0 +1,12 @@
+Disclaimer:
+
+The user interface has been developed by GIZ and UNU-EHS/MCII to showcase the result of Enhancing Climate Risk Assessment (ERA) for Improved Country Risk Financing Strategies and allow users to explore CLIMADA tool for conducting climate risk analysis in Egypt and Thailand.
+The user interface is free software. You can redistribute and/or modify it. The installation and use of the user interface is done at the user's discretion and risk.
+The user agrees to be solely responsible for any damage to the computer system, loss of data or any other damage resulting from installation or use of the software.
+GIZ and UNU-EHS/MCII shall not be responsible or liable for any damages arising in connection with downloading, installation, modifying or any other use of the software.
+GIZ and UNU-EHS/MCII shall assume no responsibility for any errors or other mistakes or inaccuracies in the software, in the results produced by the software or in the related documentation.
+
+License for CLIMADA:
+Copyright (C) 2017 ETH Zurich, CLIMADA contributors listed in AUTHORS. CLIMADA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License Version 3, 29 June 2007 as published by the Free Software Foundation, https://www.gnu.org/licenses/gpl-3.0.html.
+CLIMADA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html.

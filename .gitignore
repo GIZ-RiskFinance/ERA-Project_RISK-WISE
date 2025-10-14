@@ -1,0 +1,40 @@
+# data & temp
+data/exposures
+data/reports
+data/temp
+data/unu
+climada_unu.db
+src/temp
+
+# frontend
+node_modules
+build
+dist
+
+# backend
+__pycache__
+
+# logs
+logs/
+
+# environment
+climada_env
+
+# python
+*.pyc
+__pycache_
+
+# database
+*.sqlite3
+*.db
+
+# documentation
+docs/_build
+
+# development
+test
+test.ipynb
+changelog_generator.py
+translations.xlsx
+translation_validation.log
+translations.py

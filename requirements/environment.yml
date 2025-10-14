@@ -1,0 +1,36 @@
+name: riskwise
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - cartopy=0.20.2 # Do not upgrade to avoid issues with gdal
+  - cfgrib=0.9.8.5 # 0.9.10 cannot read the icon_grib files from https://opendata.dwd.de
+  - gdal=3.4.3 # Downgrade to avoid issues with pyinstaller
+  - flask=2.0.3
+  - flask-cors=3.0.10
+  - flask-socketio=5.3.2
+  - fiona=1.8.21
+  - folium=0.14.0
+  - geocoder=1.38.1
+  - ipykernel=6.19.2
+  - matplotlib-base=3.5.2 # Downgrade to avoid issues presented in cartopy 0.20.2 and geopandas
+  - openpyxl=3.0.9
+  - pandas=1.4.1
+  - pip
+  - pywin32
+  - pyarrow=9.0.0
+  - pytables=3.7.0
+  - requests=2.28.1
+  - rasterio=1.2.10 # Downgrade to avoid issues with pyinstaller
+  - setuptools=58.0.4
+  - xlsxwriter=3.0.8
+  - xyzservices=2022.9.0 # Downgrade to avoid issues with pyinstaller
+  - pip:
+      - climada==4.0.1
+      - docx2pdf==0.1.8
+      - docxtpl==0.16.7
+      - h5py==3.10.0
+      - pygeos==0.14
+      - python-docx==0.8.11
+      - selenium==4.15.2
+      - Werkzeug==2.0.3
