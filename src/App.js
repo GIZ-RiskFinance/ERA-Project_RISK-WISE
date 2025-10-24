@@ -46,7 +46,7 @@ const App = () => {
                 <MacroEconomicInput />
                 <AdaptationMeasuresInput />
               </Grid>
-              <Grid item xs={12} md={selectedTab !== 0 && selectedTab !== 2 ? 8 : 10}>
+              <Grid item xs={12} md={selectedTab !== 0 ? 8 : 10}>
                 <MainView />
               </Grid>
               <Grid item xs={12} md={2}>
