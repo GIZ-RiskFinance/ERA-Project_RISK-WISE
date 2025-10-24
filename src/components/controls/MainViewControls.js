@@ -7,14 +7,17 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 
 import useStore from "../../store";
 
-const controls = [
+const allControls = [
   { id: "display_map", icon: <MapIcon /> },
   { id: "display_chart", icon: <BarChartIcon /> },
 ];
 
 const MainViewControls = () => {
-  const { activeViewControl, setActiveViewControl } = useStore();
+  const { activeViewControl, setActiveViewControl, selectedSubTab } = useStore();
   const { t } = useTranslation();
+
+  const controls =
+    selectedSubTab === 1 ? allControls.filter((c) => c.id !== "display_map") : allControls;
 
   const handleSelect = (control) => {
     setActiveViewControl(control);
@@ -23,6 +26,7 @@ const MainViewControls = () => {
   return (
     <Card
       sx={{
+        // maxWidth: controls.length === 1 ? "50%" : "100%",
         maxWidth: "100%",
         margin: "auto",
         bgcolor: "#FFCCCC",
