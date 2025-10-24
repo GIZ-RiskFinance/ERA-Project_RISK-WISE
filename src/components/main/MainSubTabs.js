@@ -7,7 +7,13 @@ import useStore from "../../store";
 import { useMapTools } from "../../utils/mapTools";
 
 const MainSubTabs = () => {
-  const { activeViewControl, selectedSubTab, selectedTab, setSelectedSubTab } = useStore();
+  const {
+    activeViewControl,
+    selectedSubTab,
+    selectedTab,
+    setSelectedSubTab,
+    setActiveViewControl,
+  } = useStore();
   const { handleSaveImage, handleSaveMap, handleAddToOutput } = useMapTools();
   const { t } = useTranslation();
 
@@ -27,6 +33,11 @@ const MainSubTabs = () => {
 
   const handleSubTabChange = (event, newValue) => {
     setSelectedSubTab(newValue);
+    // Set the active vew to display_chart if Economic & Non-Economic tab is selected.
+    // The display_map is not currently available for this tab.
+    if (newValue === 1) {
+      setActiveViewControl("display_chart");
+    }
   };
 
   const handleButtonClick = (index) => {
