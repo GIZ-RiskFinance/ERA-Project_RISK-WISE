@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { Box, Typography } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
@@ -28,6 +30,7 @@ ChartJS.register(
 );
 
 const MacroEconomicChart = () => {
+  const { t } = useTranslation();
   const {
     credOutputData,
     selectedMacroCountry,
@@ -59,6 +62,12 @@ const MacroEconomicChart = () => {
     return acc;
   }, {});
 
+  // Build sorted year labels
+  const labels =
+    filteredData.length > 0
+      ? [...new Set(filteredData.map((row) => row.year))].sort((a, b) => a - b)
+      : [];
+
   const datasets = Object.keys(groupedData).map((key) => {
     let borderColor;
     let backgroundColor;
@@ -89,11 +98,15 @@ const MacroEconomicChart = () => {
       backgroundColor = "rgba(153, 102, 255, 0.2)";
     }
 
-    const label = key === "None" ? "Without adaptation" : `${key * 100}% Adaptation`;
+    const label =
+      key === "None"
+        ? t("macro_display_chart_no_adaptation")
+        : `${(parseFloat(key) * 100).toFixed(2)}% ${t("macro_display_chart_adaptation")}`;
 
     return {
       label,
-      data: groupedData[key].values,
+      // change proportions to percent values for display
+      data: groupedData[key].values.map((v) => v * 100),
       borderColor,
       backgroundColor,
       fill: true,
@@ -102,18 +115,41 @@ const MacroEconomicChart = () => {
   });
 
   const transformedData = {
-    labels: filteredData.length > 0 ? [...new Set(filteredData.map((row) => row.year))] : [],
+    labels,
     datasets,
   };
 
   const options = {
     scales: {
-      x: { type: "category" },
-      y: { beginAtZero: true },
+      x: {
+        type: "category",
+        title: {
+          display: true,
+          text: t("macro_display_chart_x_axis_label"),
+        },
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: t("macro_display_chart_y_axis_label"),
+        },
+        ticks: {
+          callback: (val) => `${Number(val).toFixed(2)}%`,
+        },
+      },
     },
     plugins: {
       legend: { display: true },
       title: { display: true, text: macroEconomicChartTitle },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const y = ctx.parsed.y;
+            return `${ctx.dataset.label}: ${y.toFixed(2)}%`;
+          },
+        },
+      },
     },
   };
 
@@ -135,7 +171,7 @@ const MacroEconomicChart = () => {
             <Line data={transformedData} options={options} />
           ) : (
             <Typography variant="h6" align="center" color="textSecondary">
-              No data available for the selected filters
+              {t("macro_display_chart_not_available")}
             </Typography>
           )}
         </div>
