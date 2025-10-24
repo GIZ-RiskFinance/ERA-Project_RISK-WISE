@@ -35,7 +35,5 @@ docs/_build
 test
 test.ipynb
 changelog_generator.py
-translations.xlsx
 translation_validation.log
-translations.py
 scripts
