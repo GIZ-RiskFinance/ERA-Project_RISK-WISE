@@ -2,7 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>CLIMADA App</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        base-uri 'self';
+        object-src 'none';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: blob: file:;
+      "
+    />
+
+    <title>RISK WISE</title>
   </head>
   <body style="background-color: #565656">
     <img
