@@ -26,7 +26,8 @@ if (!app.requestSingleInstanceLock()) {
   });
 }
 
-app.commandLine.appendSwitch("in-process-gpu");
+// Removed: avoid forcing GPU flags unless strictly needed.
+// app.commandLine.appendSwitch("in-process-gpu");
 if (app.getGPUFeatureStatus().gpu_compositing.includes("disabled")) {
   app.disableHardwareAcceleration();
 }
@@ -58,7 +59,7 @@ const createLoaderWindow = () => {
     autoHideMenuBar: true,
     icon: iconPath,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: false,
     },
   });
 
@@ -98,16 +99,22 @@ const createMainWindow = () => {
     show: false,
     webPreferences: {
       contextIsolation: true,
+      sandbox: true,
       enableRemoteModule: false,
       preload: path.join(basePath, "build", "preload.js"),
       webSecurity: true,
-      nodeIntegration: true,
+      // Disable Node integration in the renderer process for security and compatibility.
+      // With nodeIntegration: true, libraries like use-sync-external-store may try to
+      // resolve React via CommonJS require(), which breaks in a Vite/ESM build.
+      // Setting this to false ensures React (and other frontend libs) run in a proper
+      // browser-like environment and forces all backend access through preload.js.
+      nodeIntegration: false,
     },
   });
 
   mainWindow.show();
   mainWindow.maximize();
-  mainWindow.loadURL(`file://${path.join(basePath, "build", "index.html")}`);
+  mainWindow.loadFile(path.join(basePath, "build", "index.html"));
   if (isDevelopmentEnv()) {
     mainWindow.webContents.openDevTools();
   }
@@ -334,7 +341,7 @@ app.on("ready", () => {
 
 autoUpdater.setFeedURL({
   provider: "generic",
-  url: "https://ath-git.swordgroup.lan/unu/climada-unu/-/releases",
+  url: "https://github.com/GIZ-RiskFinance/ERA-Project_RISK-WISE/releases",
 });
 
 // Listen for update-available event
