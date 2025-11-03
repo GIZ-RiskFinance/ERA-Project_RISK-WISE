@@ -58,7 +58,7 @@ const AdaptationMeasuresInput = () => {
                   component="div"
                   sx={{ my: 0, wordWrap: "break-word" }} // wordWrap for long text
                 >
-                  {measureName}
+                  {t(measureName)}
                 </Typography>
               </CardContent>
             </Card>
