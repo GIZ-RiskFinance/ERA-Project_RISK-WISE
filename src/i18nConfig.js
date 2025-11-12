@@ -6,15 +6,9 @@ import translationAR from "./locales/ar.json";
 import translationTH from "./locales/th.json";
 
 const resources = {
-  en: {
-    translation: translationEN,
-  },
-  ar: {
-    translation: translationAR,
-  },
-  th: {
-    translation: translationTH,
-  },
+  en: { translation: translationEN },
+  ar: { translation: translationAR },
+  th: { translation: translationTH },
 };
 
 // Custom post-processor to handle empty or whitespace-only translations
@@ -39,21 +33,42 @@ const fallbackWhitespacePostProcessor = {
   },
 };
 
-// Register the custom post-processor
-i18n.use(fallbackWhitespacePostProcessor);
+// BiDi isolate processor – affects only translated text
+const bidiIsolatePostProcessor = {
+  type: "postProcessor",
+  name: "bidiIsolate",
+  process(value, key, options) {
+    if (value == null || typeof value !== "string") return value;
+    const lng = (options.lng || i18n.language || "en").toLowerCase();
+    const dir = i18n.dir
+      ? i18n.dir(lng)
+      : ["ar", "he", "fa", "ur"].some((l) => lng.startsWith(l))
+      ? "rtl"
+      : "ltr";
 
-// Initialize i18next
+    if (dir === "rtl") {
+      // Wrap LTR (ASCII) segments inside RTL text
+      return value.replace(/[\p{ASCII}]+/gu, (m) => (m.trim() ? `\u2066${m}\u2069` : m));
+    }
+    // Optional protection for embedded Arabic/Hebrew in LTR
+    return value.replace(/[\u0590-\u05FF\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+/g, (m) =>
+      m.trim() ? `\u2067${m}\u2069` : m
+    );
+  },
+};
+
+// Register processors (run only for i18next strings)
+i18n.use(bidiIsolatePostProcessor).use(fallbackWhitespacePostProcessor);
+
+// Initialize
 i18n.use(initReactI18next).init({
   resources,
-  lng: "en", // Default language
-  fallbackLng: "en", // Fallback language
-  keySeparator: false, // Do not use nested keys with dots
-
-  interpolation: {
-    escapeValue: false, // React already protects from XSS
-  },
-  returnEmptyString: true, // Ensure empty strings are handled in the post-processor
-  postProcess: ["fallbackWhitespace"], // Use the custom post-processor
+  lng: "en",
+  fallbackLng: "en",
+  keySeparator: false,
+  interpolation: { escapeValue: false },
+  returnEmptyString: true,
+  postProcess: ["bidiIsolate", "fallbackWhitespace"],
 });
 
 export default i18n;
