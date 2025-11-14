@@ -333,15 +333,14 @@ ipcMain.on("reload", async () => {
 });
 
 // Check for updates after the app is ready
-app.on("ready", () => {
+app.on("ready", async () => {
   if (!isDevelopmentEnv()) {
-    autoUpdater.checkForUpdatesAndNotify();
+    try {
+      await autoUpdater.checkForUpdatesAndNotify();
+    } catch (e) {
+      console.log("checkForUpdatesAndNotify failed:", e?.stack || e?.message || e);
+    }
   }
-});
-
-autoUpdater.setFeedURL({
-  provider: "generic",
-  url: "https://github.com/GIZ-RiskFinance/ERA-Project_RISK-WISE/releases",
 });
 
 // Listen for update-available event
